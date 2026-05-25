@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+<div class="col-md-6">
+
+<div class="card shadow-lg p-4">
+
+<h3 class="text-center mb-3"> Smart Accident Detection</h3>
+
+<p class="text-center text-muted">
+Auto detect accident with live location 
+</p>
+
+<!-- <form action="/detect" method="POST" enctype="multipart/form-data" onsubmit="showLoading()"> -->
+    <form action="/detect" method="POST" enctype="multipart/form-data" onsubmit="getLocationAndSubmit(event)">
+
+<input type="file" name="file" class="form-control mb-3" required onchange="previewImage(event)">
+
+<img id="preview" width="100%" style="display:none; border-radius:10px; margin-bottom:10px;">
+
+<!--  AUTO LOCATION -->
+<input type="hidden" id="lat" name="lat">
+<input type="hidden" id="lon" name="lon">
+
+<button class="btn btn-success w-100"> Detect Accident</button>
+
+<p id="loading" style="display:none; text-align:center;"> Detecting...</p>
+
+</form>
+
+<br>
+
+<p id="locStatus" style="text-align:center; color:green;"></p>
+
+<a href="/dashboard" class="btn btn-dark w-100">Dashboard</a>
+
+</div>
+</div>
+</div>
+
+<!--  AUTO LOCATION SCRIPT -->
+<!-- <script>
+function getLocation(){
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            function(position){
+                document.getElementById("lat").value = position.coords.latitude;
+                document.getElementById("lon").value = position.coords.longitude;
+
+                document.getElementById("locStatus").innerText = "📍 Location detected";
+            },
+            function(){
+                document.getElementById("locStatus").innerText = "❌ Allow location access!";
+            },
+            {
+                enableHighAccuracy:true,
+                timeout:10000
+            }
+        );
+    }
+}
+window.onload = getLocation;
+</script> -->
+
+<script>
+function getLocationAndSubmit(event){
+    event.preventDefault(); // form turant submit na ho
+
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            function(position){
+                document.getElementById("lat").value = position.coords.latitude;
+                document.getElementById("lon").value = position.coords.longitude;
+
+                document.getElementById("locStatus").innerText = " Location detected";
+
+                event.target.submit(); // ab form submit karo
+            },
+            function(){
+                document.getElementById("locStatus").innerText 
+                event.target.submit(); // location na mile tab bhi submit
+            }
+        );
+    } else {
+        event.target.submit();
+    }
+}
+</script>
+
+<!-- IMAGE PREVIEW -->
+<script>
+function previewImage(event){
+    var reader = new FileReader();
+    reader.onload = function(){
+        var img = document.getElementById("preview");
+        img.src = reader.result;
+        img.style.display = "block";
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+</script>
+
+<script>
+function showLoading(){
+    document.getElementById("loading").style.display = "block";
+}
+</script>
+
+{% endblock %}

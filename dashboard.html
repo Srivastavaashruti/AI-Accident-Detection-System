@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 style="text-align:center;">Accident Dashboard</h2>
+
+<table border="1" cellpadding="10" style="width:80%; margin:auto; text-align:center;">
+
+<tr style="background-color:lightgray;">
+<th>ID</th>
+<th>Status</th>
+<th>Severity</th>
+<th>Location</th>
+</tr>
+
+{% for row in data %}
+
+<tr>
+
+<td>{{row[0]}}</td>
+
+<td>
+{% if "Accident" in row[1] %}
+<span style="color:rgb(255, 0, 0);"> Accident Detected</span>
+{% else %}
+<span style="color:rgb(0, 128, 28);">Normal</span>
+{% endif %}
+</td>
+
+<td>
+{% if row[2] == "High" %}
+High
+{% elif row[2] == "Medium" %}
+ Medium
+{% else %}
+ Low
+{% endif %}
+</td>
+
+<td>{{row[3]}}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br><br>
+
+<div style="text-align:center;">
+<a href="/">⬅ Back to Home</a>
+</div>
+
+{% endblock %}
