@@ -4,7 +4,7 @@ import os
 
 def detect_accident(image_path):
 
-    print("🔍 Checking:", image_path)
+    print(" Checking:", image_path)
 
     if not os.path.exists(image_path):
         return "No Image Found", "Low"
