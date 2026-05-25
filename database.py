@@ -1,20 +1,20 @@
 
 import sqlite3
 
-#### 🔹 Firebase Imports
+#### Firebase Imports
 ##import firebase_admin
 #from firebase_admin import credentials, firestore
 
-# 🔹 Firebase Setup (safe connection)
+# Firebase Setup (safe connection)
 ##try:
     ##if not firebase_admin._apps:
         ##cred = credentials.Certificate("firebase_key.json")
         ##firebase_admin.initialize_app(cred)
     ##db = firestore.client()
-   ## print("✅ Firebase Connected")
+   ## print("Firebase Connected")
 ##except Exception as e:
    ## db = None
-   ### print("⚠️ Firebase not connected:", e)
+   ### print(" Firebase not connected:", e)
 
 
 # ---------------- CREATE TABLE ----------------
@@ -39,7 +39,7 @@ def create_table():
 # ---------------- INSERT DATA ----------------
 def insert_data(status, severity, location):
 
-    # 🔹 Save in SQLite
+    #  Save in SQLite
     conn = sqlite3.connect("accident.db")
     cur = conn.cursor()
 
@@ -53,7 +53,7 @@ def insert_data(status, severity, location):
 
     print(" Data saved in SQLite")
 
-   ### # 🔹 Save in Firebase (if connected)
+   ### #  Save in Firebase (if connected)
    ## if db:
        ## try:
             #3db.collection("accidents").add({
@@ -61,7 +61,7 @@ def insert_data(status, severity, location):
                ## "severity": severity,
                ## "location": location
           ##  })
-            ##print("☁️ Data saved in Firebase")
+            ##print(" Data saved in Firebase")
         ##except Exception as e:
 ##print(" Firebase Error:", e)
 
